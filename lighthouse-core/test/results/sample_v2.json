@@ -2198,10 +2198,10 @@
     },
     "csp-xss": {
       "id": "csp-xss",
-      "title": "CSP is not robust against XSS attacks",
-      "description": "A strong Content Security Policy (CSP) can significantly reduce the risk of XSS attacks. [Learn more](https://developers.google.com/web/fundamentals/security/csp)",
-      "score": 0,
-      "scoreDisplayMode": "binary",
+      "title": "Ensure CSP is robust against XSS attacks",
+      "description": "A strong Content Security Policy (CSP) can significantly reduce the risk of XSS attacks. [Learn more](https://csp.withgoogle.com/docs/index.html)",
+      "score": null,
+      "scoreDisplayMode": "informative",
       "displayValue": "No CSP found in enforcement mode"
     },
     "preload-lcp-image": {
@@ -7859,7 +7859,7 @@
       "lighthouse-core/audits/valid-source-maps.js | description": [
         "audits[valid-source-maps].description"
       ],
-      "lighthouse-core/audits/csp-xss.js | failureTitle": [
+      "lighthouse-core/audits/csp-xss.js | title": [
         "audits[csp-xss].title"
       ],
       "lighthouse-core/audits/csp-xss.js | description": [

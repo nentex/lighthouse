@@ -18,24 +18,22 @@ const {
 /** @typedef {import('../lib/csp-evaluator.js').Finding} Finding */
 
 const UIStrings = {
-  /** Title of a Lighthouse audit that evaluates the security of a page's CSP. This descriptive title is shown to users when no security vulnerabilities are found in the CSP. "CSP" stands for "Content Security Policy". "XSS" stands for "Cross Site Scripting". "CSP" and "XSS" do not need to be translated. */
-  title: 'CSP is robust against XSS attacks',
-  /** Title of a Lighthouse audit that evaluates the security of a page's CSP. This descriptive title is shown to users when at least one security vulnerability is found in the CSP. "CSP" stands for "Content Security Policy". "XSS" stands for "Cross Site Scripting". "CSP" and "XSS" do not need to be translated. */
-  failureTitle: 'CSP is not robust against XSS attacks',
+  /** Title of a Lighthouse audit that evaluates the security of a page's CSP. "CSP" stands for "Content Security Policy". "XSS" stands for "Cross Site Scripting". "CSP" and "XSS" do not need to be translated. */
+  title: 'Ensure CSP is robust against XSS attacks',
   /** Description of a Lighthouse audit that evaluates the security of a page's CSP. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. "CSP" stands for "Content Security Policy". "XSS" stands for "Cross Site Scripting". "CSP" and "XSS" do not need to be translated. */
   description: 'A strong Content Security Policy (CSP) can significantly ' +
     'reduce the risk of XSS attacks. ' +
     '[Learn more](https://csp.withgoogle.com/docs/index.html)',
   /** Summary text for the results of a Lighthouse audit that evaluates the security of a page's CSP. This is displayed if no CSP is being enforced. "CSP" stands for "Content Security Policy". "CSP" does not need to be translated. */
   noCsp: 'No CSP found in enforcement mode',
-  /** Warning message for a Lighthouse audit that evaluates the security of a page's CSP. This is displayed if no security vulnerabilities are found, but additional suggestions are available for tuning the CSP. "CSP" stands for "Content Security Policy". "CSP" does not need to be translated. */
-  additionalWarning: 'Additional CSP suggestions are available.',
   /** Message shown when one or more CSPs are defined in a <meta> tag. Shown in a table with a list of other CSP vulnerabilities and suggestions. "CSP" stands for "Content Security Policy". "CSP" and "HTTP" do not need to be translated. */
   metaTagMessage: 'The page contains a CSP defined in a <meta> tag. ' +
     'It is not recommended to use a CSP this way, ' +
     'consider defining the CSP in an HTTP header.',
   /** Message shown when a CSP has no syntax errors. Shown in a table with a list of other CSP vulnerabilities and suggestions. "CSP" stands for "Content Security Policy". */
   noSyntaxErrors: 'No syntax errors.',
+  /** Label for a column in a data table; entries will be a directive of a CSP. "CSP" stands for "Content Security Policy". */
+  columnDirective: 'Directive',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -47,8 +45,8 @@ class CspXss extends Audit {
   static get meta() {
     return {
       id: 'csp-xss',
+      scoreDisplayMode: Audit.SCORING_MODES.INFORMATIVE,
       title: str_(UIStrings.title),
-      failureTitle: str_(UIStrings.failureTitle),
       description: str_(UIStrings.description),
       requiredArtifacts: ['devtoolsLogs', 'MetaElements', 'URL'],
     };
@@ -172,16 +170,12 @@ class CspXss extends Audit {
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
       /* eslint-disable max-len */
-      {key: 'description', itemType: 'text', subItemsHeading: {key: 'description'}, text: 'Description'},
-      {key: 'directive', itemType: 'code', subItemsHeading: {key: 'directive'}, text: 'Directive'},
+      {key: 'description', itemType: 'text', subItemsHeading: {key: 'description'}, text: str_(i18n.UIStrings.columnDescription)},
+      {key: 'directive', itemType: 'code', subItemsHeading: {key: 'directive'}, text: str_(UIStrings.columnDirective)},
       /* eslint-enable max-len */
     ];
     const details = Audit.makeTableDetails(headings, results);
-    const warnings = suggestions.length && !vulnerabilities.length ?
-      [str_(UIStrings.additionalWarning)] : [];
-
     return {
-      warnings,
       score: vulnerabilities.length ? 0 : 1,
       notApplicable: false,
       details,

@@ -581,14 +581,11 @@
   "lighthouse-core/audits/critical-request-chains.js | title": {
     "message": "Avoid chaining critical requests"
   },
-  "lighthouse-core/audits/csp-xss.js | additionalWarning": {
-    "message": "Additional CSP suggestions are available."
+  "lighthouse-core/audits/csp-xss.js | columnDirective": {
+    "message": "Directive"
   },
   "lighthouse-core/audits/csp-xss.js | description": {
-    "message": "A strong Content Security Policy (CSP) can significantly reduce the risk of XSS attacks. [Learn more](https://developers.google.com/web/fundamentals/security/csp)"
-  },
-  "lighthouse-core/audits/csp-xss.js | failureTitle": {
-    "message": "CSP is not robust against XSS attacks"
+    "message": "A strong Content Security Policy (CSP) can significantly reduce the risk of XSS attacks. [Learn more](https://csp.withgoogle.com/docs/index.html)"
   },
   "lighthouse-core/audits/csp-xss.js | metaTagMessage": {
     "message": "The page contains a CSP defined in a <meta> tag. It is not recommended to use a CSP this way, consider defining the CSP in an HTTP header."
@@ -600,7 +597,7 @@
     "message": "No syntax errors."
   },
   "lighthouse-core/audits/csp-xss.js | title": {
-    "message": "CSP is robust against XSS attacks"
+    "message": "Ensure CSP is robust against XSS attacks"
   },
   "lighthouse-core/audits/deprecations.js | columnDeprecate": {
     "message": "Deprecation / Warning"
