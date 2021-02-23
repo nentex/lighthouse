@@ -26,11 +26,11 @@ const UIStrings = {
     '[Learn more](https://csp.withgoogle.com/docs/index.html)',
   /** Summary text for the results of a Lighthouse audit that evaluates the security of a page's CSP. This is displayed if no CSP is being enforced. "CSP" stands for "Content Security Policy". "CSP" does not need to be translated. */
   noCsp: 'No CSP found in enforcement mode',
-  /** Message shown when one or more CSPs are defined in a <meta> tag. Shown in a table with a list of other CSP vulnerabilities and suggestions. "CSP" stands for "Content Security Policy". "CSP" and "HTTP" do not need to be translated. */
+  /** Message shown when one or more CSPs are defined in a <meta> tag. Shown in a table with a list of other CSP bypasses and warnings. "CSP" stands for "Content Security Policy". "CSP" and "HTTP" do not need to be translated. */
   metaTagMessage: 'The page contains a CSP defined in a <meta> tag. ' +
     'It is not recommended to use a CSP this way, ' +
     'consider defining the CSP in an HTTP header.',
-  /** Message shown when a CSP has no syntax errors. Shown in a table with a list of other CSP vulnerabilities and suggestions. "CSP" stands for "Content Security Policy". */
+  /** Message shown when a CSP has no syntax errors. Shown in a table with a list of other CSP bypasses and warnings. "CSP" stands for "Content Security Policy". */
   noSyntaxErrors: 'No syntax errors.',
   /** Label for a column in a data table; entries will be a directive of a CSP. "CSP" stands for "Content Security Policy". */
   columnDirective: 'Directive',
@@ -122,7 +122,7 @@ class CspXss extends Audit {
    * @param {Array<string>} rawCsps
    * @return {LH.Audit.Details.TableItem[]}
    */
-  static collectVulnerabilityResults(rawCsps) {
+  static collectBypassResults(rawCsps) {
     const findings = evaluateRawCspForFailures(rawCsps);
     return findings.map(this.findingToTableItem);
   }
@@ -131,7 +131,7 @@ class CspXss extends Audit {
    * @param {Array<string>} rawCsps
    * @return {LH.Audit.Details.TableItem[]}
    */
-  static collectSuggestionResults(rawCsps) {
+  static collectWarningResults(rawCsps) {
     const findings = evaluateRawCspForWarnings(rawCsps);
     const results = [
       ...findings.map(this.findingToTableItem),
@@ -155,17 +155,17 @@ class CspXss extends Audit {
       };
     }
 
-    // TODO: Add severity icons for vulnerabilities and suggestions.
-    const vulnerabilities = this.collectVulnerabilityResults(rawCsps);
-    const suggestions = this.collectSuggestionResults(rawCsps);
+    // TODO: Add severity icons for bypasses and warnings.
+    const bypasses = this.collectBypassResults(rawCsps);
+    const warnings = this.collectWarningResults(rawCsps);
     const syntax = this.collectSyntaxResults(rawCsps);
 
     // Add extra warning for a CSP defined in a meta tag.
     if (cspMetaTags.length) {
-      suggestions.push({description: str_(UIStrings.metaTagMessage), directive: undefined});
+      warnings.push({description: str_(UIStrings.metaTagMessage), directive: undefined});
     }
 
-    const results = [...syntax, ...vulnerabilities, ...suggestions];
+    const results = [...syntax, ...bypasses, ...warnings];
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
@@ -176,7 +176,7 @@ class CspXss extends Audit {
     ];
     const details = Audit.makeTableDetails(headings, results);
     return {
-      score: vulnerabilities.length ? 0 : 1,
+      score: bypasses.length ? 0 : 1,
       notApplicable: false,
       details,
     };
