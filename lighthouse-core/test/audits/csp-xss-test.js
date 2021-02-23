@@ -379,9 +379,9 @@ describe('collectSyntaxResults', () => {
   });
 });
 
-describe('collectVulnerabilityResults', () => {
+describe('collectBypassResults', () => {
   it('basic case', () => {
-    const results = CspXss.collectVulnerabilityResults([`script-src 'nonce-12345678'`]);
+    const results = CspXss.collectBypassResults([`script-src 'nonce-12345678'`]);
     expect(results).toMatchObject(
       [
         {
@@ -406,9 +406,9 @@ describe('collectVulnerabilityResults', () => {
   });
 });
 
-describe('collectSuggestionResults', () => {
+describe('collectWarningResults', () => {
   it('basic case', () => {
-    const results = CspXss.collectSuggestionResults([`script-src 'nonce-12345678'`]);
+    const results = CspXss.collectWarningResults([`script-src 'nonce-12345678'`]);
     expect(results).toMatchObject(
       [
         {
