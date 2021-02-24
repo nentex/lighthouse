@@ -585,7 +585,7 @@
     "message": "Directive"
   },
   "lighthouse-core/audits/csp-xss.js | description": {
-    "message": "A strong Content Security Policy (CSP) can significantly reduce the risk of XSS attacks. [Learn more](https://csp.withgoogle.com/docs/index.html)"
+    "message": "A strong Content Security Policy (CSP) significantly reduces the risk of XSS attacks. [Learn more](https://csp.withgoogle.com/docs/index.html)"
   },
   "lighthouse-core/audits/csp-xss.js | metaTagMessage": {
     "message": "The page contains a CSP defined in a <meta> tag. It is not recommended to use a CSP this way, consider defining the CSP in an HTTP header."
@@ -597,7 +597,7 @@
     "message": "No syntax errors."
   },
   "lighthouse-core/audits/csp-xss.js | title": {
-    "message": "Ensure CSP is robust against XSS attacks"
+    "message": "Ensure CSP is effective against XSS attacks"
   },
   "lighthouse-core/audits/deprecations.js | columnDeprecate": {
     "message": "Deprecation / Warning"

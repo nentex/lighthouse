@@ -19,10 +19,10 @@ const {
 
 const UIStrings = {
   /** Title of a Lighthouse audit that evaluates the security of a page's CSP. "CSP" stands for "Content Security Policy". "XSS" stands for "Cross Site Scripting". "CSP" and "XSS" do not need to be translated. */
-  title: 'Ensure CSP is robust against XSS attacks',
+  title: 'Ensure CSP is effective against XSS attacks',
   /** Description of a Lighthouse audit that evaluates the security of a page's CSP. This is displayed after a user expands the section to see more. No character length limits. 'Learn More' becomes link text to additional documentation. "CSP" stands for "Content Security Policy". "XSS" stands for "Cross Site Scripting". "CSP" and "XSS" do not need to be translated. */
-  description: 'A strong Content Security Policy (CSP) can significantly ' +
-    'reduce the risk of XSS attacks. ' +
+  description: 'A strong Content Security Policy (CSP) significantly ' +
+    'reduces the risk of XSS attacks. ' +
     '[Learn more](https://csp.withgoogle.com/docs/index.html)',
   /** Summary text for the results of a Lighthouse audit that evaluates the security of a page's CSP. This is displayed if no CSP is being enforced. "CSP" stands for "Content Security Policy". "CSP" does not need to be translated. */
   noCsp: 'No CSP found in enforcement mode',
