@@ -13,7 +13,7 @@ declare global {
     type NodePath = string[];
 
     interface ViewMode {
-      id: string;
+      id: 'all' | 'unused-bytes';
       label: string;
       subLabel: string;
       partitionBy?: string;

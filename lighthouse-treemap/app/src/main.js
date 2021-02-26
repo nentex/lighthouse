@@ -142,8 +142,8 @@ class TreemapViewer {
         highlightNodePaths.push(path);
       });
       viewModes.push({
-        id: 'unused-js',
-        label: 'Unused JS',
+        id: 'unused-bytes',
+        label: 'Unused Bytes',
         subLabel: TreemapUtil.formatBytes(this.currentTreemapRoot.unusedBytes),
         partitionBy: 'unusedBytes',
         highlightNodePaths,
