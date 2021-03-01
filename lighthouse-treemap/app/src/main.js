@@ -9,6 +9,9 @@
 
 /* globals webtreemap TreemapUtil */
 
+const UNUSED_BYTES_IGNORE_THRESHOLD = 20 * 1024;
+const UNUSED_BYTES_IGNORE_BUNDLE_SOURCE_RATIO = 0.5;
+
 /** @type {TreemapViewer} */
 let treemapViewer;
 
@@ -63,7 +66,7 @@ class TreemapViewer {
 
     renderViewModeButtons(this.viewModes);
     this.createHeader();
-    this.show();
+    this.render();
     this.initListeners();
   }
 
@@ -131,16 +134,26 @@ class TreemapViewer {
       subLabel: TreemapUtil.formatBytes(this.currentTreemapRoot.resourceBytes),
     });
 
+    // Add the unused bytes view mode only if the usage data is available.
     if (this.currentTreemapRoot.unusedBytes !== undefined) {
       /** @type {LH.Treemap.NodePath[]} */
       const highlightNodePaths = [];
-      TreemapUtil.walk(this.currentTreemapRoot, (node, path) => {
-        // Only highlight leaf nodes of a certain size.
-        if (node.children) return;
-        if (!node.unusedBytes || node.unusedBytes < 50 * 1024) return;
+      for (const d1Node of this.currentTreemapRoot.children || []) {
+        // Only highlight leaf nodes if entire node (ie a JS bundle) has greater than a certain
+        // number of unused bytes.
+        if (!d1Node.unusedBytes || d1Node.unusedBytes < UNUSED_BYTES_IGNORE_THRESHOLD) continue;
 
-        highlightNodePaths.push(path);
-      });
+        TreemapUtil.walk(d1Node, (node, path) => {
+          // Only highlight leaf nodes of a certain ratio of unused bytes.
+          if (node.children) return;
+          if (!node.unusedBytes || !node.resourceBytes) return;
+          if (node.unusedBytes / node.resourceBytes < UNUSED_BYTES_IGNORE_BUNDLE_SOURCE_RATIO) {
+            return;
+          }
+
+          highlightNodePaths.push([this.currentTreemapRoot.name, ...path]);
+        });
+      }
       viewModes.push({
         id: 'unused-bytes',
         label: 'Unused Bytes',
@@ -153,8 +166,7 @@ class TreemapViewer {
     return viewModes;
   }
 
-  show() {
-    applyActiveClass(this.currentViewMode.id);
+  render() {
     TreemapUtil.walk(this.currentTreemapRoot, node => {
       // @ts-ignore: webtreemap will store `dom` on the data to speed up operations.
       // However, when we change the underlying data representation, we need to delete
@@ -167,18 +179,18 @@ class TreemapViewer {
     });
     webtreemap.sort(this.currentTreemapRoot);
 
-    this.el.innerHTML = '';
-    this.render();
-  }
-
-  render() {
     this.treemap = new webtreemap.TreeMap(this.currentTreemapRoot, {
       padding: [16, 3, 3, 3],
       spacing: 10,
       caption: node => this.makeCaption(node),
     });
+
+    this.el.innerHTML = '';
     this.treemap.render(this.el);
+
+    applyActiveClass(this.currentViewMode.id);
     TreemapUtil.find('.webtreemap-node').classList.add('webtreemap-node--root');
+
     this.updateColors();
   }
 
@@ -195,19 +207,20 @@ class TreemapViewer {
    */
   makeCaption(node) {
     const partitionBy = this.currentViewMode.partitionBy || 'resourceBytes';
-    // @ts-expect-error
-    const value = node[partitionBy];
-    // @ts-expect-error
+    const bytes = node[partitionBy];
     const total = this.currentTreemapRoot[partitionBy];
 
     const parts = [
       TreemapUtil.elide(node.name, 60),
-      `${TreemapUtil.formatBytes(value)} (${Math.round(value / total * 100)}%)`,
     ];
 
-    // Only add label for bytes on the root node.
-    if (node === this.currentTreemapRoot) {
-      parts[1] = `${partitionBy}: ${parts[1]}`;
+    if (bytes !== undefined && total !== undefined) {
+      parts.push(`${TreemapUtil.formatBytes(bytes)} (${Math.round(bytes / total * 100)}%)`);
+
+      // Only add label for bytes on the root node.
+      if (node === this.currentTreemapRoot) {
+        parts[1] = `${partitionBy}: ${parts[1]}`;
+      }
     }
 
     return parts.join(' · ');
@@ -274,7 +287,7 @@ function renderViewModeButtons(viewModes) {
 
     inputEl.addEventListener('click', () => {
       treemapViewer.currentViewMode = viewMode;
-      treemapViewer.show();
+      treemapViewer.render();
     });
   }
 

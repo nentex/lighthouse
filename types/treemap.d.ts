@@ -16,7 +16,7 @@ declare global {
       id: 'all' | 'unused-bytes';
       label: string;
       subLabel: string;
-      partitionBy?: string;
+      partitionBy?: 'resourceBytes' | 'unusedBytes';
       highlightNodePaths?: NodePath[];
     }
 
