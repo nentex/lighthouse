@@ -158,7 +158,6 @@ class TreemapViewer {
         id: 'unused-bytes',
         label: 'Unused Bytes',
         subLabel: TreemapUtil.formatBytes(this.currentTreemapRoot.unusedBytes),
-        partitionBy: 'unusedBytes',
         highlightNodePaths,
       });
     }
