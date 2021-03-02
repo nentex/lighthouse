@@ -94,8 +94,9 @@ describe('getTranslatedDescription', () => {
     expect(translated).toHaveLength(1);
     expect(isIcuMessage(translated[0])).toBeTruthy();
     expect(translated[0]).toBeDisplayString(
-      'Consider setting object-src to \'none\' to prevent ' +
-      'the injection of plugins that execute unsafe scripts.'
+      'Elements controlled by object-src are considered legacy features. ' +
+      'Consider setting object-src to \'none\' to prevent the injection of ' +
+      'plugins that execute unsafe scripts.'
     );
   });
 
@@ -107,7 +108,7 @@ describe('getTranslatedDescription', () => {
     expect(translated).toHaveLength(1);
     expect(isIcuMessage(translated[0])).toBeTruthy();
     expect(translated[0]).toBeDisplayString(
-      'Missing base-uri allows the injection of base tags. ' +
+      'Missing base-uri allows the injection of <base> tags. ' +
       'They can be used to set the base URL for all relative (script) ' +
       'URLs to an attacker controlled domain. ' +
       'Can you set it to \'none\' or \'self\'?'
@@ -148,7 +149,7 @@ describe('getTranslatedDescription', () => {
     expect(translated).toHaveLength(1);
     expect(isIcuMessage(translated[0])).toBeTruthy();
     expect(translated[0]).toBeDisplayString(
-      'This CSP does not configure a reporting destination. ' +
+      'No CSP configures a reporting destination. ' +
       'This makes it difficult to maintain the CSP over time and monitor for any breakages.'
     );
   });
@@ -161,8 +162,7 @@ describe('getTranslatedDescription', () => {
     expect(translated).toHaveLength(1);
     expect(isIcuMessage(translated[0])).toBeTruthy();
     expect(translated[0]).toBeDisplayString(
-      'This CSP only provides a reporting ' +
-      'destination via the report-to directive. ' +
+      'The reporting destination is only configured via the report-to directive. ' +
       'This directive is only supported in Chromium-based browsers so it is ' +
       'recommended to also use a report-uri directive.'
     );
@@ -176,7 +176,7 @@ describe('getTranslatedDescription', () => {
     expect(translated).toHaveLength(1);
     expect(isIcuMessage(translated[0])).toBeTruthy();
     expect(translated[0]).toBeDisplayString(
-      'Consider adding https: and http: url schemes (ignored by browsers ' +
+      'Consider adding https: and http: URL schemes (ignored by browsers ' +
       'supporting \'strict-dynamic\') to be backward compatible with older browsers.'
     );
   });

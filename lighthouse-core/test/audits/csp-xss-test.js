@@ -48,26 +48,27 @@ it('audit basic header', async () => {
       {
         description: {
           formattedDefault:
-            'Consider setting object-src to \'none\' to prevent ' +
-            'the injection of plugins that execute unsafe scripts.',
+          'Elements controlled by object-src are considered legacy features. ' +
+          'Consider setting object-src to \'none\' to prevent the injection of ' +
+          'plugins that execute unsafe scripts.',
         },
         directive: 'object-src',
       },
       {
         description: {
           formattedDefault:
-            'Missing base-uri allows the injection of base tags. ' +
-            'They can be used to set the base URL for all relative (script) URLs to ' +
-            'an attacker controlled domain. Can you set it to \'none\' or \'self\'?',
+          'Missing base-uri allows the injection of <base> tags. ' +
+          'They can be used to set the base URL for all relative (script) ' +
+          'URLs to an attacker controlled domain. ' +
+          'Can you set it to \'none\' or \'self\'?',
         },
         directive: 'base-uri',
       },
       {
         description: {
           formattedDefault:
-            'This CSP does not configure a reporting destination. ' +
-            'This makes it difficult to maintain the CSP over ' +
-            'time and monitor for any breakages.',
+          'No CSP configures a reporting destination. ' +
+          'This makes it difficult to maintain the CSP over time and monitor for any breakages.',
         },
         directive: 'report-uri',
       },
@@ -109,9 +110,8 @@ it('adds result when using meta tag', async () => {
     {
       description: {
         formattedDefault:
-          'The page contains a CSP defined in a <meta> tag. ' +
-          'It is not recommended to use a CSP this way, ' +
-          'consider defining the CSP in an HTTP header.',
+        'The page contains a CSP defined in a <meta> tag. ' +
+        'Consider defining the CSP in an HTTP header if you can.',
       },
       directive: undefined,
     }
@@ -387,17 +387,19 @@ describe('collectBypassResults', () => {
         {
           description: {
             formattedDefault:
-              'Consider setting object-src to \'none\' to prevent ' +
-              'the injection of plugins that execute unsafe scripts.',
+              'Elements controlled by object-src are considered legacy features. ' +
+              'Consider setting object-src to \'none\' to prevent the injection of ' +
+              'plugins that execute unsafe scripts.',
           },
           directive: 'object-src',
         },
         {
           description: {
             formattedDefault:
-              'Missing base-uri allows the injection of base tags. ' +
-              'They can be used to set the base URL for all relative (script) URLs to ' +
-              'an attacker controlled domain. Can you set it to \'none\' or \'self\'?',
+              'Missing base-uri allows the injection of <base> tags. ' +
+              'They can be used to set the base URL for all relative (script) ' +
+              'URLs to an attacker controlled domain. ' +
+              'Can you set it to \'none\' or \'self\'?',
           },
           directive: 'base-uri',
         },
@@ -414,9 +416,9 @@ describe('collectWarningResults', () => {
         {
           description: {
             formattedDefault:
-              'This CSP does not configure a reporting destination. ' +
-              'This makes it difficult to maintain the CSP over ' +
-              'time and monitor for any breakages.',
+              'No CSP configures a reporting destination. ' +
+              'This makes it difficult to maintain the CSP over time ' +
+              'and monitor for any breakages.',
           },
           directive: 'report-uri',
         },
