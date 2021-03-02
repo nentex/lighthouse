@@ -1719,7 +1719,7 @@
     "message": "The page loaded too slowly to finish within the time limit. Results may be incomplete."
   },
   "lighthouse-core/lib/csp-evaluator.js | allowlistFallback": {
-    "message": "Consider adding https: and http: url schemes (ignored by browsers supporting 'strict-dynamic') to be backward compatible with older browsers."
+    "message": "Consider adding https: and http: URL schemes (ignored by browsers supporting 'strict-dynamic') to be backward compatible with older browsers."
   },
   "lighthouse-core/lib/csp-evaluator.js | deprecatedDisownOpener": {
     "message": "disown-opener is deprecated since CSP3. Please, use the Cross-Origin-Opener-Policy header instead."
@@ -1731,7 +1731,7 @@
     "message": "reflected-xss is deprecated since CSP2. Please, use the X-XSS-Protection header instead."
   },
   "lighthouse-core/lib/csp-evaluator.js | missingBaseUri": {
-    "message": "Missing base-uri allows the injection of base tags. They can be used to set the base URL for all relative (script) URLs to an attacker controlled domain. Can you set it to 'none' or 'self'?"
+    "message": "Missing base-uri allows the injection of <base> tags. They can be used to set the base URL for all relative (script) URLs to an attacker controlled domain. Can you set it to 'none' or 'self'?"
   },
   "lighthouse-core/lib/csp-evaluator.js | missingObjectSrc": {
     "message": "Consider setting object-src to 'none' to prevent the injection of plugins that execute unsafe scripts."
