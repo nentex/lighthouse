@@ -588,7 +588,7 @@
     "message": "A strong Content Security Policy (CSP) significantly reduces the risk of XSS attacks. [Learn more](https://csp.withgoogle.com/docs/index.html)"
   },
   "lighthouse-core/audits/csp-xss.js | metaTagMessage": {
-    "message": "The page contains a CSP defined in a <meta> tag. It is not recommended to use a CSP this way, consider defining the CSP in an HTTP header."
+    "message": "The page contains a CSP defined in a <meta> tag. Consider defining the CSP in an HTTP header if you can."
   },
   "lighthouse-core/audits/csp-xss.js | noCsp": {
     "message": "No CSP found in enforcement mode"
@@ -1734,7 +1734,7 @@
     "message": "Missing base-uri allows the injection of <base> tags. They can be used to set the base URL for all relative (script) URLs to an attacker controlled domain. Can you set it to 'none' or 'self'?"
   },
   "lighthouse-core/lib/csp-evaluator.js | missingObjectSrc": {
-    "message": "Consider setting object-src to 'none' to prevent the injection of plugins that execute unsafe scripts."
+    "message": "Elements controlled by object-src are considered legacy features. Consider setting object-src to 'none' to prevent the injection of plugins that execute unsafe scripts."
   },
   "lighthouse-core/lib/csp-evaluator.js | missingScriptSrc": {
     "message": "script-src directive is missing. This can allow the execution of unsafe scripts."
@@ -1749,10 +1749,10 @@
     "message": "Nonces should be at least 8 characters long."
   },
   "lighthouse-core/lib/csp-evaluator.js | reportingDestinationMissing": {
-    "message": "This CSP does not configure a reporting destination. This makes it difficult to maintain the CSP over time and monitor for any breakages."
+    "message": "No CSP configures a reporting destination. This makes it difficult to maintain the CSP over time and monitor for any breakages."
   },
   "lighthouse-core/lib/csp-evaluator.js | reportToOnly": {
-    "message": "This CSP only provides a reporting destination via the report-to directive. This directive is only supported in Chromium-based browsers so it is recommended to also use a report-uri directive."
+    "message": "The reporting destination is only configured via the report-to directive. This directive is only supported in Chromium-based browsers so it is recommended to also use a report-uri directive."
   },
   "lighthouse-core/lib/csp-evaluator.js | strictDynamic": {
     "message": "Host allowlists can frequently be bypassed. Consider using 'strict-dynamic' in combination with CSP nonces or hashes."

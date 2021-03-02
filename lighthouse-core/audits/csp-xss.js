@@ -28,8 +28,7 @@ const UIStrings = {
   noCsp: 'No CSP found in enforcement mode',
   /** Message shown when one or more CSPs are defined in a <meta> tag. Shown in a table with a list of other CSP bypasses and warnings. "CSP" stands for "Content Security Policy". "CSP" and "HTTP" do not need to be translated. */
   metaTagMessage: 'The page contains a CSP defined in a <meta> tag. ' +
-    'It is not recommended to use a CSP this way, ' +
-    'consider defining the CSP in an HTTP header.',
+    'Consider defining the CSP in an HTTP header if you can.',
   /** Message shown when a CSP has no syntax errors. Shown in a table with a list of other CSP bypasses and warnings. "CSP" stands for "Content Security Policy". */
   noSyntaxErrors: 'No syntax errors.',
   /** Label for a column in a data table; entries will be a directive of a CSP. "CSP" stands for "Content Security Policy". */
